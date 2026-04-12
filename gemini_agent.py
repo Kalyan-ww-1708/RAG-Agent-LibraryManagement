@@ -67,7 +67,8 @@ Question:
 """
     response = llm.invoke(prompt)
     print("\n📌 Answer:")
-    print(response.content)
+    # print(response.content)
+    return response.content
 
 
 def main():

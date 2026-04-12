@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Assistant 📚</title>
+</head>
+<body>
+    <h2>Ask the Library Assistant</h2>
+
+    <input type="text" id="query" placeholder="Enter your question" size="50">
+    <button onclick="askQuestion()">Ask</button>
+
+    <p><strong>Answer:</strong></p>
+    <p id="result"></p>
+
+    <script>
+        async function askQuestion() {
+            const query = document.getElementById("query").value;
+
+            const response = await fetch("/ask", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({query})
+            });
+
+            const data = await response.json();
+            document.getElementById("result").innerText = data.answer;
+        }
+    </script>
+</body>
+</html>
