@@ -34,11 +34,27 @@ def create_vector_store(chunks):
     return vector_db
 
 
+# def load_retriever():
+    # return vector_db.as_retriever(search_kwargs={"k": 3})
+    # embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    # vector_db = FAISS.load_local("faiss_index_gemini", embeddings, allow_dangerous_deserialization=True)
+    # retriever = vector_db.as_retriever(search_kwargs={"k": 3})
+    # return retriever
 def load_retriever():
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-    vector_db = FAISS.load_local("faiss_index_gemini", embeddings, allow_dangerous_deserialization=True)
-    retriever = vector_db.as_retriever(search_kwargs={"k": 3})
-    return retriever
+
+    if not os.path.exists("faiss_index_gemini"):
+        documents = document_loader()
+        chunks = chunking_document(documents)
+        create_vector_store(chunks)
+
+    vector_db = FAISS.load_local(
+        "faiss_index_gemini",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
+
+    return vector_db.as_retriever(search_kwargs={"k": 3})
 
 
 def query_retriever(query):
