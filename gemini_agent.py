@@ -4,6 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 # --- CHANGED IMPORTS ---
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
+from flask import Flask, request, jsonify
 # -----------------------
 from dotenv import load_dotenv
 
@@ -71,7 +72,21 @@ Question:
     return response.content
 
 
-def main():
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Gemini Agent Running 🚀"
+
+@app.route("/ask", methods=["POST"])
+def ask():
+    data = request.json
+    question = data.get("question")
+    response = agent(query)
+    return jsonify({"response": response})
+
+# def main():
     # --- IMPORTANT ---
     # You MUST re-create the index because OpenAI and Google
     # embeddings have different vector dimensions.
@@ -80,8 +95,8 @@ def main():
     # chunks = chunking_document(documents)
     # create_vector_store(chunks)
 
-    query = "Suggest a legal Thriller."
-    agent(query)
+    # query = "Suggest a legal Thriller."
+    
 
 
 if __name__ == "__main__":
