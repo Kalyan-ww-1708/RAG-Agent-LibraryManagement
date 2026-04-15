@@ -89,10 +89,6 @@ Question:
 
 
 def main():
-    --- IMPORTANT ---
-    You MUST re-create the index because OpenAI and Google
-    embeddings have different vector dimensions.
-
     documents = document_loader()
     chunks = chunking_document(documents)
     create_vector_store(chunks)
