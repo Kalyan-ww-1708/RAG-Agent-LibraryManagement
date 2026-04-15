@@ -3,7 +3,7 @@ from flask_cors import CORS
 from gemini_agent import agent
 
 app = Flask(__name__)
-CORS(app, resources={r"/ask": {"origins": "http://localhost:5173"}})
+CORS(app)
 # Home page
 @app.route("/")
 def home():
