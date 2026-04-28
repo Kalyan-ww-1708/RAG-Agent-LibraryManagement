@@ -7,3 +7,5 @@ python-dotenv
 faiss-cpu
 langchain_google_genai
 flask
+flask-cors
+gunicorn
