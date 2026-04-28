@@ -64,8 +64,10 @@ Question:
 Answer:
 """
     response = llm.invoke(prompt)
-    print("\n📌 Answer:")
-    print(response.content)
+    print("\n Answer:")
+    return response.content
+
+    # print(response.content)
 
 
 def main():
@@ -77,7 +79,3 @@ def main():
     # Ask question
     query = "Suggest a biography."
     agent(query)
-
-
-if __name__ == "__main__":
-    main()
