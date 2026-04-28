@@ -7,10 +7,10 @@ from gemini_agent import agent
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-# Home page
-@app.route("/")
+
+@app.route("/", methods=["GET", "HEAD"])
 def home():
-    return render_template("index.html")
+    return {"status": "API is running"}, 200
 
 # API endpoint
 @app.route("/ask", methods=["POST"])
@@ -26,7 +26,7 @@ def ask():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render provides PORT
+    port = int(os.environ.get("PORT", 10000)) 
     app.run(host="0.0.0.0", port=port)
 
 
