@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from gemini_agent import agent
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 
